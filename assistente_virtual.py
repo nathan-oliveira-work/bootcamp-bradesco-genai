@@ -1,0 +1,54 @@
+# Assistente Virtual com Inteligencia Artificial
+# Bootcamp Bradesco - GenAI, Dados & Cyber
+# Autor: Nathan Da Silva Oliveira
+
+
+class AssistenteVirtual:
+    def __init__(self, nome="BradescoBot"):
+            self.nome = nome
+                    self.historico = []
+                            self.base_conhecimento = {
+                                        "pix": "O Pix e um sistema de pagamento instantaneo 24h sem custo para pessoas fisicas.",
+                                                    "cartao": "Para duvidas sobre cartao, acesse o app ou ligue 4002-8922.",
+                                                                "seguranca": "Nunca compartilhe sua senha. O banco nao solicita senha por telefone.",
+                                                                            "saldo": "Consulte saldo pelo app, internet banking ou caixas eletronicos.",
+                                                                                        "investimento": "Temos CDB, LCI, LCA, Tesouro Direto e Fundos. Consulte nosso assessor.",
+                                                                                                }
+
+                                                                                                    def processar_mensagem(self, mensagem):
+                                                                                                            mensagem_lower = mensagem.lower()
+                                                                                                                    self.historico.append({"usuario": mensagem})
+                                                                                                                            resposta = self._identificar_intencao(mensagem_lower)
+                                                                                                                                    self.historico.append({"assistente": resposta})
+                                                                                                                                            return resposta
+                                                                                                                                            
+                                                                                                                                                def _identificar_intencao(self, mensagem):
+                                                                                                                                                        palavras_chave = {
+                                                                                                                                                                    "pix": ["pix", "transferencia"],
+                                                                                                                                                                                "cartao": ["cartao", "fatura"],
+                                                                                                                                                                                            "seguranca": ["seguranca", "fraude", "golpe", "senha"],
+                                                                                                                                                                                                        "saldo": ["saldo", "extrato"],
+                                                                                                                                                                                                                    "investimento": ["investimento", "aplicacao"],
+                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                    for topico, palavras in palavras_chave.items():
+                                                                                                                                                                                                                                                if any(p in mensagem for p in palavras):
+                                                                                                                                                                                                                                                                return f"{self.nome}: {self.base_conhecimento[topico]}"
+                                                                                                                                                                                                                                                                        return f"{self.nome}: Posso ajudar com Pix, cartao, saldo, investimentos e seguranca!"
+                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                        def main():
+                                                                                                                                                                                                                                                                            print("Bem-vindo ao Assistente Virtual Bradesco!")
+                                                                                                                                                                                                                                                                                bot = AssistenteVirtual()
+                                                                                                                                                                                                                                                                                    perguntas = [
+                                                                                                                                                                                                                                                                                            "Como fazer um Pix?",
+                                                                                                                                                                                                                                                                                                    "Quero ver meu saldo",
+                                                                                                                                                                                                                                                                                                            "Recebi uma ligacao suspeita",
+                                                                                                                                                                                                                                                                                                                    "Quero investir meu dinheiro",
+                                                                                                                                                                                                                                                                                                                        ]
+                                                                                                                                                                                                                                                                                                                            for p in perguntas:
+                                                                                                                                                                                                                                                                                                                                    print(f"\nVoce: {p}")
+                                                                                                                                                                                                                                                                                                                                            print(bot.processar_mensagem(p))
+                                                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                                                            if __name__ == "__main__":
+                                                                                                                                                                                                                                                                                                                                                main()
